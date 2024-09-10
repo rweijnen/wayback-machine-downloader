@@ -279,6 +279,8 @@ class WaybackMachineDownloader
             end
           rescue StandardError => e
             puts "#{file_url} # #{e}"
+            sleep(30)
+            retry
           end
         end
       rescue StandardError => e
@@ -293,6 +295,7 @@ class WaybackMachineDownloader
         @processed_file_count += 1
         puts "#{file_url} -> #{file_path} (#{@processed_file_count}/#{file_list_by_timestamp.size})"
       end
+      sleep(2)
     else
       semaphore.synchronize do
         @processed_file_count += 1
